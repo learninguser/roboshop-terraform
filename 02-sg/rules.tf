@@ -53,15 +53,6 @@ resource "aws_security_group_rule" "rabbitmq_payment" {
   security_group_id        = module.rabbitmq.sg_id
 }
 
-resource "aws_security_group_rule" "catalogue_web" {
-  source_security_group_id = module.web.sg_id
-  type                     = "ingress"
-  from_port                = 8080
-  to_port                  = 8080
-  protocol                 = "tcp"
-  security_group_id        = module.catalogue.sg_id
-}
-
 resource "aws_security_group_rule" "catalogue_cart" {
   source_security_group_id = module.cart.sg_id
   type                     = "ingress"
@@ -71,16 +62,6 @@ resource "aws_security_group_rule" "catalogue_cart" {
   security_group_id        = module.catalogue.sg_id
 }
 
-
-resource "aws_security_group_rule" "user_web" {
-  source_security_group_id = module.web.sg_id
-  type                     = "ingress"
-  from_port                = 8080
-  to_port                  = 8080
-  protocol                 = "tcp"
-  security_group_id        = module.user.sg_id
-}
-
 resource "aws_security_group_rule" "user_payment" {
   source_security_group_id = module.payment.sg_id
   type                     = "ingress"
@@ -88,16 +69,6 @@ resource "aws_security_group_rule" "user_payment" {
   to_port                  = 8080
   protocol                 = "tcp"
   security_group_id        = module.user.sg_id
-}
-
-
-resource "aws_security_group_rule" "cart_web" {
-  source_security_group_id = module.web.sg_id
-  type                     = "ingress"
-  from_port                = 8080
-  to_port                  = 8080
-  protocol                 = "tcp"
-  security_group_id        = module.cart.sg_id
 }
 
 resource "aws_security_group_rule" "cart_shipping" {
@@ -118,6 +89,32 @@ resource "aws_security_group_rule" "cart_payment" {
   security_group_id        = module.cart.sg_id
 }
 
+resource "aws_security_group_rule" "catalogue_web" {
+  source_security_group_id = module.web.sg_id
+  type                     = "ingress"
+  from_port                = 8080
+  to_port                  = 8080
+  protocol                 = "tcp"
+  security_group_id        = module.catalogue.sg_id
+}
+
+resource "aws_security_group_rule" "user_web" {
+  source_security_group_id = module.web.sg_id
+  type                     = "ingress"
+  from_port                = 8080
+  to_port                  = 8080
+  protocol                 = "tcp"
+  security_group_id        = module.user.sg_id
+}
+
+resource "aws_security_group_rule" "cart_web" {
+  source_security_group_id = module.web.sg_id
+  type                     = "ingress"
+  from_port                = 8080
+  to_port                  = 8080
+  protocol                 = "tcp"
+  security_group_id        = module.cart.sg_id
+}
 
 resource "aws_security_group_rule" "shipping_web" {
   source_security_group_id = module.web.sg_id

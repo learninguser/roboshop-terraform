@@ -9,10 +9,10 @@ module "ec2_instance" {
   spot_type                           = "persistent"
   spot_instance_interruption_behavior = "stop"
   user_data                           = file("openvpn.sh")
+
   tags = merge(
     var.common_tags,
     {
-      Name      = "${local.ec2_name}-vpn"
       Component = "vpn"
     }
   )

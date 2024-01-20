@@ -217,3 +217,25 @@ module "web" {
     }
   )
 }
+
+module "ansible" {
+  source                              = "terraform-aws-modules/ec2-instance/aws"
+  name                                = "${local.ec2_name}-ansible"
+  instance_type                       = "t3.micro"
+  ami                                 = data.aws_ami.centos.id
+  vpc_security_group_ids              = [data.aws_ssm_parameter.vpn_sg_id.value]
+  subnet_id                           = data.aws_subnet.default.id
+  create_spot_instance                = true
+  spot_type                           = "persistent"
+  spot_instance_interruption_behavior = "stop"
+
+  tags = merge(
+    var.common_tags,
+    {
+      Name      = "${local.ec2_name}-ansible"
+    },
+    {
+      Component = "ansible"
+    }
+  )
+}

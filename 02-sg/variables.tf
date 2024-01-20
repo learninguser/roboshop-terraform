@@ -35,3 +35,23 @@ variable "mongodb_sg_ingress_rules" {
     }
   ]
 }
+
+variable "vpc_ingress_rules" {
+  type = list(any)
+  default = [
+    {
+      from_port   = 1179
+      to_port     = 1179
+      description = "Allow port 1179 to connect to openvpn "
+      protocol    = "tcp"
+      cidr_blocks = ["77.64.254.132/32"]
+    },
+    {
+      from_port   = 22
+      to_port     = 22
+      description = "allowing PORT 22 from public"
+      protocol    = "tcp"
+      cidr_blocks = ["77.64.254.132/32"]
+    }
+  ]
+}
